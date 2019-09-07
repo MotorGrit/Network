@@ -1,0 +1,8 @@
+*.log
+*.yml
+wp-config.php
+
+/.htaccess
+/sitemap.xml
+/sitemap.xml.gz
+
