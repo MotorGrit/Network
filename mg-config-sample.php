@@ -78,7 +78,7 @@ $table_prefix  = 'mg_';
  * It is strongly recommended that plugin and theme developers use `WP_DEBUG`
  * in their development environments.
  *
- * @see dev-reference/debugging.md
+ * @see mg-dev-reference/debugging.md
  */
 define( 'WP_DEBUG', true );
 
