@@ -33,7 +33,7 @@ if ( false ) {
 define( 'WP_INSTALLING', true );
 
 /** Load Motor & Grit Bootstrap */
-require_once( dirname( dirname( __FILE__ ) ) . '/wp-load.php' );
+require_once( dirname( dirname( __FILE__ ) ) . '/app-load.php' );
 
 /** Load Motor & Grit Administration Upgrade API */
 require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
