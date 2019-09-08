@@ -11,7 +11,7 @@
  * * MySQL settings
  * * Secret keys
  * * Database table prefix
- * * ABSPATH
+ * * `ABSPATH`
  *
  * @package MG_Network
  */
@@ -68,25 +68,21 @@ define( 'NONCE_SALT',       'Put your unique phrase here' );
  *
  * You can have multiple installations in one database if you give each
  * a unique prefix. Only numbers, letters, and underscores please!
- *
- * @todo Consider changing the default prefix.
  */
-$table_prefix  = 'wp_';
+$table_prefix  = 'mg_';
 
 /**
  * Debugging mode
  *
  * Change this to true to enable the display of notices during development.
- * It is strongly recommended that plugin and theme developers use WP_DEBUG
+ * It is strongly recommended that plugin and theme developers use `WP_DEBUG`
  * in their development environments.
  *
- * @link https://wordpress.org/support/article/debugging-in-wordpress/
+ * @see dev-reference/debugging.md
  */
 define( 'WP_DEBUG', true );
 
-/**
- * Multisite definitions
- */
+// Multisite definitions.
 define( 'WP_ALLOW_MULTISITE', true );
 
 /**
