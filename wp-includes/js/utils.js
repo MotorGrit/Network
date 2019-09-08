@@ -157,7 +157,7 @@ function setUserSetting( name, value, _del ) {
 	}
 
 	var uid = userSettings.uid,
-		settings = wpCookies.getHash( 'wp-settings-' + uid ),
+		settings = wpCookies.getHash( 'app-settings-' + uid ),
 		path = userSettings.url,
 		secure = !! userSettings.secure;
 
@@ -177,8 +177,8 @@ function setUserSetting( name, value, _del ) {
 		settings[name] = value;
 	}
 
-	wpCookies.setHash( 'wp-settings-' + uid, settings, 31536000, path, '', secure );
-	wpCookies.set( 'wp-settings-time-' + uid, userSettings.time, 31536000, path, '', secure );
+	wpCookies.setHash( 'app-settings-' + uid, settings, 31536000, path, '', secure );
+	wpCookies.set( 'app-settings-time-' + uid, userSettings.time, 31536000, path, '', secure );
 
 	return name;
 }
@@ -193,6 +193,6 @@ function getAllUserSettings() {
 		return {};
 	}
 
-	return wpCookies.getHash( 'wp-settings-' + userSettings.uid ) || {};
+	return wpCookies.getHash( 'app-settings-' + userSettings.uid ) || {};
 }
 

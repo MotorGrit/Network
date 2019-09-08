@@ -2,7 +2,7 @@
 /**
  * Bootstrap file for setting the ABSPATH constant
  * and loading the mg-config.php file. The mg-config.php
- * file will then load the wp-settings.php file, which
+ * file will then load the app-settings.php file, which
  * will then set up the WordPress environment.
  *
  * If the mg-config.php file is not found then an error
@@ -24,10 +24,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 error_reporting( E_CORE_ERROR | E_CORE_WARNING | E_COMPILE_ERROR | E_ERROR | E_WARNING | E_PARSE | E_USER_ERROR | E_USER_WARNING | E_RECOVERABLE_ERROR );
 
 /*
- * If mg-config.php exists in the application root, or if it exists in the root and wp-settings.php
+ * If mg-config.php exists in the application root, or if it exists in the root and app-settings.php
  * doesn't, then load the mg-config.php.
  *
- * The secondary check for wp-settings.php has the added benefit of avoiding cases where
+ * The secondary check for app-settings.php has the added benefit of avoiding cases where
  * the current directory is a nested installation. For example:
  * `/` is root application A and `/blog/` is application B.
  *
@@ -38,7 +38,7 @@ if ( file_exists( ABSPATH . 'mg-config.php') ) {
 	// The config file resides in ABSPATH.
 	require_once( ABSPATH . 'mg-config.php' );
 
-} elseif ( @file_exists( dirname( ABSPATH ) . '/mg-config.php' ) && ! @file_exists( dirname( ABSPATH ) . '/wp-settings.php' ) ) {
+} elseif ( @file_exists( dirname( ABSPATH ) . '/mg-config.php' ) && ! @file_exists( dirname( ABSPATH ) . '/app-settings.php' ) ) {
 
 	// The config file resides one level above ABSPATH but is not part of another installation.
 	require_once( dirname( ABSPATH ) . '/mg-config.php' );
