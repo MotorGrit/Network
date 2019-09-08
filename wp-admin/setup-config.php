@@ -218,8 +218,14 @@ function setup_config_display_header( $body_classes = array() ) {
 					</tr>
 					<tr>
 						<th scope="row"><label for="prefix"><?php _e( 'Table Prefix' ); ?></label></th>
-						<td><input name="prefix" id="prefix" type="text" value="mg_" size="25" /></td>
-						<td><?php _e( 'If you want to run multiple installations in a single database, change this.' ); ?></td>
+						<td><input name="prefix" id="prefix" type="text" value="mg_<?php echo esc_attr( md5( time() ) ); ?>_" size="25" /></td>
+						<td><?php echo sprintf(
+							'%1s <em>mg_%2s_</em><br />%3s',
+							esc_html__( 'Random table prefix is:' ),
+							md5( time() ),
+							esc_html__( 'Change this if you want to define your own prefix.' )
+
+						); ?></td>
 					</tr>
 				</table>
 				<?php if ( isset( $_GET['noapi'] ) ) { ?><input name="noapi" type="hidden" value="1" /><?php } ?>
