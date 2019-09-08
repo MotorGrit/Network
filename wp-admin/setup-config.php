@@ -200,12 +200,12 @@ function setup_config_display_header( $body_classes = array() ) {
 					</tr>
 					<tr>
 						<th scope="row"><label for="uname"><?php _e( 'Username' ); ?></label></th>
-						<td><input name="uname" id="uname" type="text" size="25" value="<?php echo htmlspecialchars( _x( 'username', 'example username' ), ENT_QUOTES ); ?>" /></td>
+						<td><input name="uname" id="uname" type="text" size="25" value="<?php echo htmlspecialchars( _x( 'root', 'example username' ), ENT_QUOTES ); ?>" /></td>
 						<td><?php _e( 'Your database username.' ); ?></td>
 					</tr>
 					<tr>
 						<th scope="row"><label for="pwd"><?php _e( 'Password' ); ?></label></th>
-						<td><input name="pwd" id="pwd" type="text" size="25" value="<?php echo htmlspecialchars( _x( 'password', 'example password' ), ENT_QUOTES ); ?>" autocomplete="off" /></td>
+						<td><input name="pwd" id="pwd" type="text" size="25" value="<?php echo htmlspecialchars( _x( 'mysql', 'example password' ), ENT_QUOTES ); ?>" autocomplete="off" /></td>
 						<td><?php _e( 'Your database password.' ); ?></td>
 					</tr>
 					<tr>
@@ -218,7 +218,7 @@ function setup_config_display_header( $body_classes = array() ) {
 					</tr>
 					<tr>
 						<th scope="row"><label for="prefix"><?php _e( 'Table Prefix' ); ?></label></th>
-						<td><input name="prefix" id="prefix" type="text" value="mp_" size="25" /></td>
+						<td><input name="prefix" id="prefix" type="text" value="mg_" size="25" /></td>
 						<td><?php _e( 'If you want to run multiple installations in a single database, change this.' ); ?></td>
 					</tr>
 				</table>
@@ -342,11 +342,11 @@ function setup_config_display_header( $body_classes = array() ) {
 						case 'DB_USER'     :
 						case 'DB_PASSWORD' :
 						case 'DB_HOST'     :
-							$config_file[ $line_num ] = "define('" . $constant . "'," . $padding . "'" . addcslashes( constant( $constant ), "\\'" ) . "');\r\n";
+							$config_file[ $line_num ] = "define( '" . $constant . "'," . $padding . "'" . addcslashes( constant( $constant ), "\\'" ) . "' );\r\n";
 							break;
 						case 'DB_CHARSET'  :
 							if ( 'utf8mb4' === $wpdb->charset || ( ! $wpdb->charset && $wpdb->has_cap( 'utf8mb4' ) ) ) {
-								$config_file[ $line_num ] = "define('" . $constant . "'," . $padding . "'utf8mb4');\r\n";
+								$config_file[ $line_num ] = "define( '" . $constant . "'," . $padding . "'utf8mb4' );\r\n";
 							}
 							break;
 						case 'AUTH_KEY'         :
@@ -357,7 +357,7 @@ function setup_config_display_header( $body_classes = array() ) {
 						case 'SECURE_AUTH_SALT' :
 						case 'LOGGED_IN_SALT'   :
 						case 'NONCE_SALT'       :
-							$config_file[ $line_num ] = "define('" . $constant . "'," . $padding . "'" . $secret_keys[$key++] . "');\r\n";
+							$config_file[ $line_num ] = "define( '" . $constant . "'," . $padding . "'" . $secret_keys[$key++] . "' );\r\n";
 							break;
 					}
 				}
