@@ -85,6 +85,11 @@ $table_prefix  = 'wp_';
 define( 'WP_DEBUG', true );
 
 /**
+ * Multisite definitions
+ */
+define( 'WP_ALLOW_MULTISITE', true );
+
+/**
  * End customization
  *
  * Do not add or edit anything below this comment block.
