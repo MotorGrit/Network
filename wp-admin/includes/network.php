@@ -1,6 +1,6 @@
 <?php
 /**
- * WordPress Network Administration API.
+ * Network Administration API.
  *
  * @package WordPress
  * @subpackage Administration
@@ -12,7 +12,7 @@
  *
  * @since 3.0.0
  *
- * @global wpdb $wpdb WordPress database abstraction object.
+ * @global wpdb $wpdb Database abstraction object.
  *
  * @return Whether a network exists.
  */
@@ -45,7 +45,7 @@ function allow_subdomain_install() {
  *
  * @since 3.0.0
  *
- * @global wpdb $wpdb WordPress database abstraction object.
+ * @global wpdb $wpdb Database abstraction object.
  *
  * @return bool Whether subdirectory installation is allowed
  */
@@ -167,7 +167,7 @@ function network_step1( $errors = false ) {
 	}
 	?>
 	<p><?php _e( 'Welcome to the Network installation process!' ); ?></p>
-	<p><?php _e( 'Fill in the information below and you&#8217;ll be on your way to creating a network of WordPress sites. We will create configuration files in the next step.' ); ?></p>
+	<p><?php _e( 'Fill in the information below and you&#8217;ll be on your way to creating a network of sites. We will create configuration files in the next step.' ); ?></p>
 	<?php
 
 	if ( isset( $_POST['subdomain_install'] ) ) {
@@ -208,7 +208,7 @@ function network_step1( $errors = false ) {
 
 	if ( allow_subdomain_install() && allow_subdirectory_install() ) : ?>
 		<h3><?php esc_html_e( 'Addresses of Sites in your Network' ); ?></h3>
-		<p><?php _e( 'Please choose whether you would like sites in your WordPress network to use sub-domains or sub-directories.' ); ?>
+		<p><?php _e( 'Please choose whether you would like sites in your network to use sub-domains or sub-directories.' ); ?>
 			<strong><?php _e( 'You cannot change this later.' ); ?></strong></p>
 		<p><?php _e( 'You will need a wildcard DNS record if you are going to use the virtual host (sub-domain) functionality.' ); ?></p>
 		<?php // @todo: Link to an MS readme? ?>
@@ -270,7 +270,7 @@ function network_step1( $errors = false ) {
 				<td><?php
 					printf(
 						/* translators: 1: localhost 2: localhost.localdomain */
-						__( 'Because you are using %1$s, the sites in your WordPress network must use sub-directories. Consider using %2$s if you wish to use sub-domains.' ),
+						__( 'Because you are using %1$s, the sites in your network must use sub-directories. Consider using %2$s if you wish to use sub-domains.' ),
 						'<code>localhost</code>',
 						'<code>localhost.localdomain</code>'
 					);
@@ -283,7 +283,7 @@ function network_step1( $errors = false ) {
 			<tr>
 				<th scope="row"><?php esc_html_e( 'Sub-directory Installation' ); ?></th>
 				<td><?php
-					_e( 'Because your installation is in a directory, the sites in your WordPress network must use sub-directories.' );
+					_e( 'Because your installation is in a directory, the sites in your network must use sub-directories.' );
 					// Uh oh:
 					if ( !allow_subdirectory_install() )
 						echo ' <strong>' . __( 'Warning:' ) . ' ' . __( 'The main site in a sub-directory installation will need to use a modified permalink structure, potentially breaking existing links.' ) . '</strong>';
@@ -292,7 +292,7 @@ function network_step1( $errors = false ) {
 		<?php elseif ( !allow_subdirectory_install() ) : ?>
 			<tr>
 				<th scope="row"><?php esc_html_e( 'Sub-domain Installation' ); ?></th>
-				<td><?php _e( 'Because your installation is not new, the sites in your WordPress network must use sub-domains.' );
+				<td><?php _e( 'Because your installation is not new, the sites in your network must use sub-domains.' );
 					echo ' <strong>' . __( 'The main site in a sub-directory installation will need to use a modified permalink structure, potentially breaking existing links.' ) . '</strong>';
 				?></td>
 			</tr>
@@ -338,7 +338,7 @@ function network_step1( $errors = false ) {
  *
  * @since 3.0.0
  *
- * @global wpdb $wpdb WordPress database abstraction object.
+ * @global wpdb $wpdb Database abstraction object.
  *
  * @param WP_Error $errors
  */
@@ -379,7 +379,7 @@ function network_step2( $errors = false ) {
 		} else {
 			$subdomain_install = (bool) $wpdb->get_var( "SELECT meta_value FROM $wpdb->sitemeta WHERE site_id = 1 AND meta_key = 'subdomain_install'" );
 ?>
-	<div class="error"><p><strong><?php _e( 'Warning:' ); ?></strong> <?php _e( 'An existing WordPress network was detected.' ); ?></p></div>
+	<div class="error"><p><strong><?php _e( 'Warning:' ); ?></strong> <?php _e( 'An existing network was detected.' ); ?></p></div>
 	<p><?php _e( 'Please complete the configuration steps. To create a new network, you will need to empty or remove the network database tables.' ); ?></p>
 <?php
 		}
@@ -425,7 +425,7 @@ function network_step2( $errors = false ) {
 		<ol>
 			<li><p><?php printf(
 				/* translators: 1: mg-config.php 2: location of mg-config file, 3: translated version of "That's all, stop editing! Happy blogging." */
-				__( 'Add the following to your %1$s file in %2$s <strong>above</strong> the line reading %3$s:' ),
+				__( 'Add the following to your %1$s file in %2$s below the line reading %3$s:' ),
 				'<code>mg-config.php</code>',
 				'<code>' . $location_of_wp_config . '</code>',
 				/*
@@ -433,15 +433,15 @@ function network_step2( $errors = false ) {
 				 * You can check the localized release package or
 				 * https://i18n.svn.wordpress.org/<locale code>/branches/<wp version>/dist/mg-config-sample.php
 				 */
-				'<code>/* ' . __( 'That&#8217;s all, stop editing! Happy blogging.' ) . ' */</code>'
+				'<code>// ' . __( 'Multisite definitions.' ) . '</code>'
 			); ?></p>
 				<textarea class="code" readonly="readonly" cols="100" rows="7">
-define('MULTISITE', true);
-define('SUBDOMAIN_INSTALL', <?php echo $subdomain_install ? 'true' : 'false'; ?>);
-define('DOMAIN_CURRENT_SITE', '<?php echo $hostname; ?>');
-define('PATH_CURRENT_SITE', '<?php echo $base; ?>');
-define('SITE_ID_CURRENT_SITE', 1);
-define('BLOG_ID_CURRENT_SITE', 1);
+define( 'MULTISITE', true );
+define( 'SUBDOMAIN_INSTALL', <?php echo $subdomain_install ? 'true' : 'false'; ?> );
+define( 'DOMAIN_CURRENT_SITE', '<?php echo $hostname; ?>' );
+define( 'PATH_CURRENT_SITE', '<?php echo $base; ?>' );
+define( 'SITE_ID_CURRENT_SITE', 1 );
+define( 'BLOG_ID_CURRENT_SITE', 1 );
 </textarea>
 <?php
 	$keys_salts = array( 'AUTH_KEY' => '', 'SECURE_AUTH_KEY' => '', 'LOGGED_IN_KEY' => '', 'NONCE_KEY' => '', 'AUTH_SALT' => '', 'SECURE_AUTH_SALT' => '', 'LOGGED_IN_SALT' => '', 'NONCE_SALT' => '' );
@@ -500,23 +500,23 @@ define('BLOG_ID_CURRENT_SITE', 1);
     <system.webServer>
         <rewrite>
             <rules>
-                <rule name="WordPress Rule 1" stopProcessing="true">
+                <rule name="Network Rule 1" stopProcessing="true">
                     <match url="^index\.php$" ignoreCase="false" />
                     <action type="None" />
                 </rule>';
 				if ( is_multisite() && get_site_option( 'ms_files_rewriting' ) ) {
 					$web_config_file .= '
-                <rule name="WordPress Rule for Files" stopProcessing="true">
+                <rule name="Network Rule for Files" stopProcessing="true">
                     <match url="^' . $iis_subdir_match . 'files/(.+)" ignoreCase="false" />
                     <action type="Rewrite" url="' . $iis_rewrite_base . WPINC . '/ms-files.php?file={R:1}" appendQueryString="false" />
                 </rule>';
                 }
                 $web_config_file .= '
-                <rule name="WordPress Rule 2" stopProcessing="true">
+                <rule name="Network Rule 2" stopProcessing="true">
                     <match url="^' . $iis_subdir_match . 'wp-admin$" ignoreCase="false" />
                     <action type="Redirect" url="' . $iis_subdir_replacement . 'wp-admin/" redirectType="Permanent" />
                 </rule>
-                <rule name="WordPress Rule 3" stopProcessing="true">
+                <rule name="Network Rule 3" stopProcessing="true">
                     <match url="^" ignoreCase="false" />
                     <conditions logicalGrouping="MatchAny">
                         <add input="{REQUEST_FILENAME}" matchType="IsFile" ignoreCase="false" />
@@ -524,15 +524,15 @@ define('BLOG_ID_CURRENT_SITE', 1);
                     </conditions>
                     <action type="None" />
                 </rule>
-                <rule name="WordPress Rule 4" stopProcessing="true">
+                <rule name="Network Rule 4" stopProcessing="true">
                     <match url="^' . $iis_subdir_match . '(wp-(content|admin|includes).*)" ignoreCase="false" />
                     <action type="Rewrite" url="' . $iis_rewrite_base . '{R:1}" />
                 </rule>
-                <rule name="WordPress Rule 5" stopProcessing="true">
+                <rule name="Network Rule 5" stopProcessing="true">
                     <match url="^' . $iis_subdir_match . '([_0-9a-zA-Z-]+/)?(.*\.php)$" ignoreCase="false" />
                     <action type="Rewrite" url="' . $iis_rewrite_base . '{R:2}" />
                 </rule>
-                <rule name="WordPress Rule 6" stopProcessing="true">
+                <rule name="Network Rule 6" stopProcessing="true">
                     <match url="." ignoreCase="false" />
                     <action type="Rewrite" url="index.php" />
                 </rule>
@@ -545,7 +545,7 @@ define('BLOG_ID_CURRENT_SITE', 1);
 		echo '<li><p>';
 		printf(
 			/* translators: 1: a filename like .htaccess. 2: a file path. */
-			__( 'Add the following to your %1$s file in %2$s, <strong>replacing</strong> other WordPress rules:' ),
+			__( 'Add the following to your %1$s file in %2$s, <strong>replacing</strong> other Motor & Grit rules:' ),
 			'<code>web.config</code>',
 			'<code>' . $home_path . '</code>'
 		);
@@ -585,7 +585,7 @@ EOF;
 		echo '<li><p>';
 		printf(
 			/* translators: 1: a filename like .htaccess. 2: a file path. */
-			__( 'Add the following to your %1$s file in %2$s, <strong>replacing</strong> other WordPress rules:' ),
+			__( 'Add the following to your %1$s file in %2$s, <strong>replacing</strong> other Motor & Grit rules:' ),
 			'<code>.htaccess</code>',
 			'<code>' . $home_path . '</code>'
 		);
