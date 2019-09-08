@@ -1,6 +1,6 @@
 *.log
 *.yml
-wp-config.php
+mg-config.php
 
 /.htaccess
 /sitemap.xml

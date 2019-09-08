@@ -1433,10 +1433,10 @@ function WP_Filesystem( $args = false, $context = false, $allow_relaxed_file_own
  * (Via Sockets class, or `fsockopen()`). Valid values for these are: 'direct', 'ssh2',
  * 'ftpext' or 'ftpsockets'.
  *
- * The return value can be overridden by defining the `FS_METHOD` constant in `wp-config.php`,
+ * The return value can be overridden by defining the `FS_METHOD` constant in `mg-config.php`,
  * or filtering via {@see 'filesystem_method'}.
  *
- * @link https://codex.wordpress.org/Editing_wp-config.php#WordPress_Upgrade_Constants
+ * @link https://codex.wordpress.org/Editing_mg-config.php#WordPress_Upgrade_Constants
  *
  * Plugins may define a custom transport handler, See WP_Filesystem().
  *

@@ -2,9 +2,9 @@
 /**
  * The base configuration for the Motor & Grit network
  *
- * The wp-config.php creation script uses this file during the
+ * The mg-config.php creation script uses this file during the
  * installation. You don't have to use the web site, you can
- * copy this file to "wp-config.php" and fill in the values.
+ * copy this file to "mg-config.php" and fill in the values.
  *
  * This file contains the following configurations:
  *
@@ -52,14 +52,14 @@ define( 'DB_COLLATE', '' );
  *
  * @since 2.6.0
  */
-define( 'AUTH_KEY',         'Put your unique phrase here' );
-define( 'SECURE_AUTH_KEY',  'Put your unique phrase here' );
-define( 'LOGGED_IN_KEY',    'Put your unique phrase here' );
-define( 'NONCE_KEY',        'Put your unique phrase here' );
-define( 'AUTH_SALT',        'Put your unique phrase here' );
-define( 'SECURE_AUTH_SALT', 'Put your unique phrase here' );
-define( 'LOGGED_IN_SALT',   'Put your unique phrase here' );
-define( 'NONCE_SALT',       'Put your unique phrase here' );
+define('AUTH_KEY',         'Put your unique phrase here');
+define('SECURE_AUTH_KEY',  'Put your unique phrase here');
+define('LOGGED_IN_KEY',    'Put your unique phrase here');
+define('NONCE_KEY',        'Put your unique phrase here');
+define('AUTH_SALT',        'Put your unique phrase here');
+define('SECURE_AUTH_SALT', 'Put your unique phrase here');
+define('LOGGED_IN_SALT',   'Put your unique phrase here');
+define('NONCE_SALT',       'Put your unique phrase here');
 
 /**#@-*/
 

@@ -2061,12 +2061,12 @@ if ( !function_exists('wp_salt') ) :
  * Get salt to add to hashes.
  *
  * Salts are created using secret keys. Secret keys are located in two places:
- * in the database and in the wp-config.php file. The secret key in the database
- * is randomly generated and will be appended to the secret keys in wp-config.php.
+ * in the database and in the mg-config.php file. The secret key in the database
+ * is randomly generated and will be appended to the secret keys in mg-config.php.
  *
- * The secret keys in wp-config.php should be updated to strong, random keys to maximize
+ * The secret keys in mg-config.php should be updated to strong, random keys to maximize
  * security. Below is an example of how the secret key constants are defined.
- * Do not paste this example directly into wp-config.php. Instead, have a
+ * Do not paste this example directly into mg-config.php. Instead, have a
  * {@link https://api.wordpress.org/secret-key/1.1/salt/ secret key created} just
  * for you.
  *
@@ -2084,7 +2084,7 @@ if ( !function_exists('wp_salt') ) :
  *
  * @since 2.5.0
  *
- * @link https://api.wordpress.org/secret-key/1.1/salt/ Create secrets for wp-config.php
+ * @link https://api.wordpress.org/secret-key/1.1/salt/ Create secrets for mg-config.php
  *
  * @staticvar array $cached_salts
  * @staticvar array $duplicated_keys

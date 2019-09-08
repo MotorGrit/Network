@@ -1,22 +1,23 @@
+@import '_reset';
 @import '_colors';
 
 html {
 	background: #fff;
-	margin: 0 20px;
 }
 
 body {
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding: 1.875rem;
 	background: #fff;
-	color: #444;
+	color: #555;
 	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
-	margin: 140px auto 25px;
-	padding: 20px 20px 10px 20px;
-	max-width: 700px;
+	font-size: 1.125rem;
+	line-height: 1.5;
 	-webkit-font-smoothing: subpixel-antialiased;
-
-	&.language-chooser {
-		max-width: 320px;
-	}
 }
 
 a {
@@ -53,26 +54,51 @@ h3 {
 	font-size: 16px;
 }
 
-p, li, dd, dt {
-	padding-bottom: 2px;
-	font-size: 14px;
-	line-height: 1.5;
-}
-
 code, .code {
 	font-family: Consolas, Monaco, monospace;
-}
-
-ul, ol, dl {
-	padding: 5px 5px 5px 22px;
 }
 
 a img {
 	border:0
 }
+
 abbr {
 	border: 0;
 	font-variant: normal;
+}
+
+.setup-config-wrap {
+	width: 100%;
+	max-width: 700px;
+	margin-top: 1em;
+	font-size: 1.0625rem;
+
+	p, dd, dt, ul, ol, dl {
+		margin: 1em 0 0 0;
+	}
+
+	ul, ol, dl {
+		padding-left: 1em;
+	}
+
+	.step {
+		text-align: right;
+	}
+}
+
+form {
+	width: 100%;
+	max-width: 700px;
+
+	select {
+		width: 100%;
+		max-width: 320px;
+		display: block;
+		padding: 1em;
+		border: 1px solid #ccc;
+		background-color: #fff;
+		font-weight: 400;
+	}
 }
 
 fieldset {
@@ -86,33 +112,36 @@ label {
 }
 
 #logo {
+	margin: 1em 0 0 0;
 	border-bottom: none;
-	text-align:center
-}
+	text-align:center;
 
-#logo a {
-	background-image: url(../images/w-logo-blue.png?ver=20131202);
-	background-image: none, url(../images/motor-grit-logo.svg?ver=20131107);
-	background-size: 320px;
-	background-position: center top;
-	background-repeat: no-repeat;
-	color: #444; /* same as login.css */
-	height: 80px;
-	font-size: 20px;
-	font-weight: 400;
-	line-height: 1.3em;
-	margin: -130px auto 25px;
-	padding: 0;
-	text-decoration: none;
-	width: 320px;
-	text-indent: -9999px;
-	outline: none;
-	overflow: hidden;
-	display: block;
-}
+	a {
+		display: block;
+		width: 320px;
+		height: 80px;
+		margin: 0 auto;
+		padding: 0;
+		overflow: hidden;
 
-#logo a:focus {
-	box-shadow: none;
+		background-image: url(../images/motor-grit-logo.png);
+		background-image: none, url(../images/motor-grit-logo.svg);
+		background-size: 320px;
+		background-position: center top;
+		background-repeat: no-repeat;
+
+		font-size: 20px;
+		font-weight: 400;
+		line-height: 1.3em;
+		text-decoration: none;
+		text-indent: -9999px;
+		outline: none;
+		color: #444; /* same as login.css */
+
+		&:focus {
+			box-shadow: none;
+		}
+	}
 }
 
 .step {
@@ -122,6 +151,12 @@ label {
 .step, th {
 	text-align: left;
 	padding: 0;
+}
+
+.install-message {
+	margin: 1em 0;
+	font-size: 1.3125rem;
+	font-style: italic;
 }
 
 .language-chooser.wp-core-ui .step .button.button-large {
@@ -385,22 +420,6 @@ body.rtl,
 		box-sizing: border-box;
 	}
 
-}
-
-.language-chooser select {
-	padding: 8px;
-	width: 100%;
-	display: block;
-	border: 1px solid #ddd;
-	background-color: #fff;
-	color: #32373c;
-	font-size: 16px;
-	font-family: Arial, sans-serif;
-	font-weight: 400;
-}
-
-.language-chooser p {
-	text-align: right;
 }
 
 .screen-reader-input,
