@@ -2557,7 +2557,7 @@ function make_site_theme_from_oldschool($theme_name, $template) {
 			$f = fopen("$site_dir/$newfile", 'w');
 
 			foreach ($lines as $line) {
-				if (preg_match('/require.*wp-blog-header/', $line))
+				if (preg_match('/require.*app-header/', $line))
 					$line = '//' . $line;
 
 				// Update stylesheet references.

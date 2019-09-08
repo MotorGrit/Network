@@ -2,7 +2,7 @@
 /**
  * Front to the application
  *
- * This file loads wp-blog-header.php which then loads the theme.
+ * This file loads app-header.php which then loads the theme.
  *
  * @package WordPress
  */
