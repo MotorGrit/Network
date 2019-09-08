@@ -1005,7 +1005,7 @@ We hope you enjoy your new site. Thanks!
 		'wpmu_upgrade_site' => $wp_db_version,
 		'welcome_email' => $welcome_email,
 		/* translators: %s: site link */
-		'first_post' => __( 'Welcome to %s. This is your first post. Edit or delete it, then start blogging!' ),
+		'first_post' => __( 'This is a sample post. Edit it or delete it.' ),
 		// @todo - network admins should have a method of editing the network siteurl (used for cookie hash)
 		'siteurl' => get_option( 'siteurl' ) . '/',
 		'add_new_users' => '0',

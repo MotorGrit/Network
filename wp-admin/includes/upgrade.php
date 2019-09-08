@@ -116,7 +116,7 @@ if ( !function_exists('wp_install_defaults') ) :
 /**
  * Creates the initial content for a newly-installed site.
  *
- * Adds the default "Uncategorized" category, the first post (with comment),
+ * Adds the default "General" category, the first post (with comment),
  * first page, and default widgets for default theme for the current version.
  *
  * @since 2.1.0
@@ -131,9 +131,9 @@ function wp_install_defaults( $user_id ) {
 	global $wpdb, $wp_rewrite, $table_prefix;
 
 	// Default category
-	$cat_name = __('Uncategorized');
+	$cat_name = __('General');
 	/* translators: Default category slug */
-	$cat_slug = sanitize_title(_x('Uncategorized', 'Default category slug'));
+	$cat_slug = sanitize_title(_x('General', 'Default category slug'));
 
 	if ( global_terms_enabled() ) {
 		$cat_id = $wpdb->get_var( $wpdb->prepare( "SELECT cat_ID FROM {$wpdb->sitecategories} WHERE category_nicename = %s", $cat_slug ) );
@@ -160,7 +160,7 @@ function wp_install_defaults( $user_id ) {
 
 		if ( ! $first_post ) {
 			/* translators: %s: site link */
-			$first_post = __( 'Welcome to %s. This is your first post. Edit or delete it, then start blogging!' );
+			$first_post = __( 'This is a sample post. Edit it or delete it.' );
 		}
 
 		$first_post = sprintf( $first_post,
@@ -171,7 +171,7 @@ function wp_install_defaults( $user_id ) {
 		$first_post = str_replace( 'SITE_URL', esc_url( network_home_url() ), $first_post );
 		$first_post = str_replace( 'SITE_NAME', get_network()->site_name, $first_post );
 	} else {
-		$first_post = __( 'Welcome to WordPress. This is your first post. Edit or delete it, then start writing!' );
+		$first_post = __( 'This is a sample post. Edit it or delete it.' );
 	}
 
 	$wpdb->insert( $wpdb->posts, array(
@@ -180,9 +180,9 @@ function wp_install_defaults( $user_id ) {
 		'post_date_gmt' => $now_gmt,
 		'post_content' => $first_post,
 		'post_excerpt' => '',
-		'post_title' => __('Hello world!'),
+		'post_title' => __( 'Sample Post' ),
 		/* translators: Default post slug */
-		'post_name' => sanitize_title( _x('hello-world', 'Default post slug') ),
+		'post_name' => sanitize_title( _x( 'sample-post', 'Default post slug' ) ),
 		'post_modified' => $now,
 		'post_modified_gmt' => $now_gmt,
 		'guid' => $first_post_guid,
@@ -201,12 +201,11 @@ function wp_install_defaults( $user_id ) {
 		$first_comment = get_site_option( 'first_comment' );
 	}
 
-	$first_comment_author = ! empty( $first_comment_author ) ? $first_comment_author : __( 'A WordPress Commenter' );
-	$first_comment_email = ! empty( $first_comment_email ) ? $first_comment_email : 'wapuu@wordpress.example';
-	$first_comment_url = ! empty( $first_comment_url ) ? $first_comment_url : 'https://wordpress.org/';
+	$first_comment_author = ! empty( $first_comment_author ) ? $first_comment_author : __( 'Sample Commenter' );
+	$first_comment_email = ! empty( $first_comment_email ) ? $first_comment_email : 'no-reply@localhost';
+	$first_comment_url = ! empty( $first_comment_url ) ? $first_comment_url : 'https:/motorandgrit.com/';
 	$first_comment = ! empty( $first_comment ) ? $first_comment :  __( 'Hi, this is a comment.
-To get started with moderating, editing, and deleting comments, please visit the Comments screen in the dashboard.
-Commenter avatars come from <a href="https://gravatar.com">Gravatar</a>.' );
+To get started with moderating, editing, and deleting comments, please visit the Comments screen in the dashboard.' );
 	$wpdb->insert( $wpdb->comments, array(
 		'comment_post_ID' => 1,
 		'comment_author' => $first_comment_author,
@@ -221,15 +220,7 @@ Commenter avatars come from <a href="https://gravatar.com">Gravatar</a>.' );
 	if ( is_multisite() )
 		$first_page = get_site_option( 'first_page' );
 
-	$first_page = ! empty( $first_page ) ? $first_page : sprintf( __( "This is an example page. It's different from a blog post because it will stay in one place and will show up in your site navigation (in most themes). Most people start with an About page that introduces them to potential site visitors. It might say something like this:
-
-<blockquote>Hi there! I'm a bike messenger by day, aspiring actor by night, and this is my website. I live in Los Angeles, have a great dog named Jack, and I like pi&#241;a coladas. (And gettin' caught in the rain.)</blockquote>
-
-...or something like this:
-
-<blockquote>The XYZ Doohickey Company was founded in 1971, and has been providing quality doohickeys to the public ever since. Located in Gotham City, XYZ employs over 2,000 people and does all kinds of awesome things for the Gotham community.</blockquote>
-
-As a new WordPress user, you should go to <a href=\"%s\">your dashboard</a> to delete this page and create new pages for your content. Have fun!" ), admin_url() );
+	$first_page = ! empty( $first_page ) ? $first_page : sprintf( __( 'This is a sample page. Pages are static content.' ), admin_url() );
 
 	$first_post_guid = get_option('home') . '/?page_id=2';
 	$wpdb->insert( $wpdb->posts, array(
@@ -251,52 +242,6 @@ As a new WordPress user, you should go to <a href=\"%s\">your dashboard</a> to d
 		'post_content_filtered' => ''
 	));
 	$wpdb->insert( $wpdb->postmeta, array( 'post_id' => 2, 'meta_key' => '_wp_page_template', 'meta_value' => 'default' ) );
-
-	// Privacy Policy page
-	if ( is_multisite() ) {
-		// Disable by default unless the suggested content is provided.
-		$privacy_policy_content = get_site_option( 'default_privacy_policy_content' );
-	} else {
-		if ( ! class_exists( 'WP_Privacy_Policy_Content' ) ) {
-			include_once( ABSPATH . 'wp-admin/includes/misc.php' );
-		}
-
-		$privacy_policy_content = WP_Privacy_Policy_Content::get_default_content();
-	}
-
-	if ( ! empty( $privacy_policy_content ) ) {
-		$privacy_policy_guid = get_option( 'home' ) . '/?page_id=3';
-
-		$wpdb->insert(
-			$wpdb->posts, array(
-				'post_author'           => $user_id,
-				'post_date'             => $now,
-				'post_date_gmt'         => $now_gmt,
-				'post_content'          => $privacy_policy_content,
-				'post_excerpt'          => '',
-				'comment_status'        => 'closed',
-				'post_title'            => __( 'Privacy Policy' ),
-				/* translators: Privacy Policy page slug */
-				'post_name'             => __( 'privacy-policy' ),
-				'post_modified'         => $now,
-				'post_modified_gmt'     => $now_gmt,
-				'guid'                  => $privacy_policy_guid,
-				'post_type'             => 'page',
-				'post_status'           => 'draft',
-				'to_ping'               => '',
-				'pinged'                => '',
-				'post_content_filtered' => '',
-			)
-		);
-		$wpdb->insert(
-			$wpdb->postmeta, array(
-				'post_id'    => 3,
-				'meta_key'   => '_wp_page_template',
-				'meta_value' => 'default',
-			)
-		);
-		update_option( 'wp_page_for_privacy_policy', 3 );
-	}
 
 	// Set up default widgets for default theme.
 	update_option( 'widget_search', array ( 2 => array ( 'title' => '' ), '_multiwidget' => 1 ) );
