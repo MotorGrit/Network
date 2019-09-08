@@ -1,6 +1,8 @@
 *.log
 *.yml
 mg-config.php
+wp-content/plugins/
+wp-content/themes/
 
 /.htaccess
 /sitemap.xml
