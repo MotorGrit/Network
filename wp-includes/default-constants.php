@@ -357,7 +357,8 @@ function wp_templating_constants() {
 	 * @since 3.0.0
 	 * @see WP_Theme::get_core_default_theme()
 	 */
-	if ( !defined('WP_DEFAULT_THEME') )
-		define( 'WP_DEFAULT_THEME', 'twentyseventeen' );
+	if ( ! defined( 'WP_DEFAULT_THEME' ) ) {
+		define( 'WP_DEFAULT_THEME', 'mg-theme' );
+	}
 
 }
